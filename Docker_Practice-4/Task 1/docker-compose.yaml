@@ -1,0 +1,11 @@
+services:
+  proxy:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+  api:
+    image: alpine
+    container_name: api-app
+    command: sleep infinity

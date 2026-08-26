@@ -1,0 +1,33 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis-app
+    networks:
+      - backend
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
+  api:
+    image: alpine
+    container_name: alpine-app
+    command: sleep infinity
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - redis
+  proxy:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+    networks:
+      - frontend
+    depends_on:
+      - api
+
+networks:
+  backend:
+  frontend:
+volumes:
+  redisdata:
