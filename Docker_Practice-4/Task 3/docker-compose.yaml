@@ -5,7 +5,7 @@ services:
     networks:
       - backend
     volumes:
-      - ${REDIS_DATA_STORAGE_NAME}:/data
+      - redisdata:/data
     restart: unless-stopped
   api:
     image: alpine
@@ -31,3 +31,4 @@ networks:
   frontend:
 volumes:
   redisdata:
+    name: ${REDIS_DATA_STORAGE_NAME}
